@@ -1,8 +1,8 @@
 # Distributed Elixir Demo
 
-## PART 1 (Simple visits counter)
+## PART 2 (Clustered visits counter)
 
-Here we use a `GenServer` as user session, `Cowboy` server and `Plug` web framework to expose the endpoint, `Dynamic` supervisor to supervise the session process and `Registry` to be able to find this named session in any moment.
+Here we use `libcluster` library to search for nodes according to provided strategy and form a cluster on startup.
 
 ### Usage
 
@@ -10,21 +10,21 @@ You should start with downloading and installing dependencies.
 
 `mix deps.get`
 
-It's all. Feel free to start a session in `iex`.
+Our topology strategy support cluster of 3 nodes named `a@127.0.0.1`, `b@127.0.0.1` and `c@127.0.0.1`. The node names are hard coded to simplify the demo but `libcluster` suppoert different types of strategies including `K8s` dns and others.
 
-`iex -S mix`
+Now we can start our node like this
 
-Open your favourite browser and navigate to `localhost:4005`. You should see something like
+First terminal tab:
+`COWBOY_PORT=4005 iex --name a@127.0.0.1 -S mix`
 
-`Distributed Elixir Demo (Node: nonode@nohost)`
+Second tab:
+`COWBOY_PORT=4006 iex --name b@127.0.0.1 -S mix`
 
-To start user session or/and increment visits just add `user_name` parameter to the url `localhost:4005/?user_name=juanito` the result will be similar to
+You will see the following output:
 
 ```
-Distributed Elixir Demo (Node: nonode@nohost)
-User juanito visited site 1 times.
+14:53:09.930 [info]  [libcluster:demo] connected to :"a@127.0.0.1"
+14:53:09.931 [warn]  [libcluster:demo] unable to connect to :"c@127.0.0.1"
 ```
 
-So entering this url over and over again you will notice the visit count incrementing respectively.
-
-
+Sweet. `libcluster` does its job. You can check it by executing `Node.list()` in each node.

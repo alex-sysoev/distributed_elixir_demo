@@ -12,10 +12,20 @@ defmodule DistributedElixirDemo.Application do
     children = [
       {Registry, keys: :unique, name: Registry.Session},
       SessionSupervisor,
-      Plug.Cowboy.child_spec(scheme: :http, plug: Router, options: [port: port])
+      Plug.Cowboy.child_spec(scheme: :http, plug: Router, options: [port: port]),
+      {Cluster.Supervisor, [topologies(), [name: DistributedElixirDemo.ClusterSupervisor]]}
     ]
 
     opts = [strategy: :one_for_one, name: DistributedElixirDemo.Supervisor]
     Supervisor.start_link(children, opts)
+  end
+
+  defp topologies do
+    [
+      demo: [
+        strategy: Elixir.Cluster.Strategy.Epmd,
+        config: [hosts: [:"a@127.0.0.1", :"b@127.0.0.1", :"c@127.0.0.1"]]
+      ]
+    ]
   end
 end
