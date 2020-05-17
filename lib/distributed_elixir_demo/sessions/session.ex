@@ -41,6 +41,12 @@ defmodule DistributedElixirDemo.Session do
     end
   end
 
+  # Build process name
+  @spec via_tuple(binary) :: {:via, atom, {atom, tuple}}
+  def via_tuple(user_name) do
+    {:via, Registry, {Registry.Session, {:session, user_name}}}
+  end
+
   @impl true
   def init([user_name]) do
     {
@@ -56,10 +62,6 @@ defmodule DistributedElixirDemo.Session do
   def handle_call(:visit, _pid, state) do
     new_state = %{state | visits: state.visits + 1}
     {:reply, new_state, new_state}
-  end
-
-  defp via_tuple(user_name) do
-    {:via, Registry, {Registry.Session, {:session, user_name}}}
   end
 
   defp get_state({:ok, pid}), do: :sys.get_state(pid)

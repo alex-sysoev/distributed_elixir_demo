@@ -22,7 +22,14 @@ defmodule DistributedElixirDemo.Plug.Router do
     build_title() <> "\n" <> "<p><b>User #{user} visited site #{count} times.</b></p>"
   end
 
-  defp build_response(_), do: build_title()
+  defp build_response(_) do
+    Registry.Session
+    |> Registry.select([{{:"$1", :"$2", :"$3"}, [], [{{:"$1", :"$2", :"$3"}}]}])
+    |> Enum.filter(fn {{_, user}, _, _} -> GenServer.whereis(Session.via_tuple(user)) end)
+    |> Enum.map(fn {_, pid, _} -> "<p>" <> "#{:sys.get_state(pid).user_name}: #{:sys.get_state(pid).visits}" <> "</p>" end)
+    |> (&[build_title() | &1]).()
+    |> Enum.join("\n")
+  end
 
   defp build_title, do: "<h1>Distributed Elixir Demo (Node: #{Node.self()})</h1>"
 end
