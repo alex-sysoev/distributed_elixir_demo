@@ -44,7 +44,7 @@ defmodule DistributedElixirDemo.Session do
   # Build process name
   @spec via_tuple(binary) :: {:via, atom, {atom, tuple}}
   def via_tuple(user_name) do
-    {:via, Registry, {Registry.Session, {:session, user_name}}}
+    {:via, Horde.Registry, {Registry.Session, {:session, user_name}}}
   end
 
   @impl true

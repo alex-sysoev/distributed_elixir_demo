@@ -24,7 +24,7 @@ defmodule DistributedElixirDemo.Plug.Router do
 
   defp build_response(_) do
     Registry.Session
-    |> Registry.select([{{:"$1", :"$2", :"$3"}, [], [{{:"$1", :"$2", :"$3"}}]}])
+    |> Horde.Registry.select([{{:"$1", :"$2", :"$3"}, [], [{{:"$1", :"$2", :"$3"}}]}])
     |> Enum.filter(fn {{_, user}, _, _} -> GenServer.whereis(Session.via_tuple(user)) end)
     |> Enum.map(fn {_, pid, _} -> "<h2>" <> "#{:sys.get_state(pid).user_name}: #{:sys.get_state(pid).visits} (#{:sys.get_state(pid).node}) " <> "</h2>" end)
     |> (&[build_title() | &1]).()
