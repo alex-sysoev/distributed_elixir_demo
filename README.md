@@ -10,14 +10,14 @@ You should start with downloading and installing dependencies.
 
 `mix deps.get`
 
-Our topology strategy support cluster of 3 nodes named `a@127.0.0.1`, `b@127.0.0.1` and `c@127.0.0.1`. The node names are hard coded to simplify the demo but `libcluster` suppoert different types of strategies including `K8s` dns and others.
+Our topology strategy support cluster of 3 nodes named `a@127.0.0.1`, `b@127.0.0.1` and `c@127.0.0.1`. The node names are hard coded to simplify the demo but `libcluster` supports different types of strategies including `K8s` DNS and others.
 
-Now we can start our node like this
+Now we can start our nodes. Rememeber to use different ports for web server to avoid conflicts.
 
 First terminal tab:
 `COWBOY_PORT=4005 iex --name a@127.0.0.1 -S mix`
 
-Second tab:
+Second terminal tab:
 `COWBOY_PORT=4006 iex --name b@127.0.0.1 -S mix`
 
 You will see the following output:
