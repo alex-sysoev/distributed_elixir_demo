@@ -23,7 +23,8 @@ defmodule DistributedElixirDemo.MixProject do
   defp deps do
     [
       {:plug_cowboy, "~> 2.0"},
-      {:libcluster, "~> 3.1"}
+      {:libcluster, "~> 3.1"},
+      {:horde, "~> 0.7.0"}
     ]
   end
 end

@@ -4,15 +4,21 @@ defmodule DistributedElixirDemo.Application do
   use Application
 
   alias DistributedElixirDemo.Plug.Router
-  alias DistributedElixirDemo.SessionSupervisor
+
+  alias DistributedElixirDemo.{
+    NodeManager,
+    SessionRegistry,
+    SessionSupervisor
+  }
 
   def start(_type, _args) do
     port = String.to_integer(System.get_env("COWBOY_PORT") || "4005")
 
     children = [
-      {Registry, keys: :unique, name: Registry.Session},
+      SessionRegistry,
       SessionSupervisor,
       Plug.Cowboy.child_spec(scheme: :http, plug: Router, options: [port: port]),
+      NodeManager.child_spec(),
       {Cluster.Supervisor, [topologies(), [name: DistributedElixirDemo.ClusterSupervisor]]}
     ]
 
