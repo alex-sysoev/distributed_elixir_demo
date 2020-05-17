@@ -24,7 +24,9 @@ defmodule DistributedElixirDemo.MixProject do
     [
       {:plug_cowboy, "~> 2.0"},
       {:libcluster, "~> 3.1"},
-      {:horde, "~> 0.7.0"}
+      {:horde, "~> 0.7.0"},
+      {:ecto_sql, "~> 3.0"},
+      {:postgrex, ">= 0.0.0"}
     ]
   end
 end

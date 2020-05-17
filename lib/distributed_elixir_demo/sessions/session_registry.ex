@@ -14,6 +14,7 @@ defmodule DistributedElixirDemo.SessionRegistry do
   def init(options) do
     options
     |> Keyword.put(:members, members())
+    |> Keyword.put(:shutdown, 10_000)
     |> Horde.Registry.init()
   end
 

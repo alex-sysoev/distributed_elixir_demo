@@ -17,7 +17,7 @@ defmodule DistributedElixirDemo.SessionSupervisor do
 
   @impl true
   def init(_args) do
-    Horde.DynamicSupervisor.init(strategy: :one_for_one, members: members())
+    Horde.DynamicSupervisor.init(strategy: :one_for_one, members: members(), shutdown: 10_000)
   end
 
   defp members do

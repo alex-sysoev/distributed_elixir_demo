@@ -7,6 +7,7 @@ defmodule DistributedElixirDemo.Application do
 
   alias DistributedElixirDemo.{
     NodeManager,
+    Repo,
     SessionRegistry,
     SessionSupervisor
   }
@@ -15,6 +16,7 @@ defmodule DistributedElixirDemo.Application do
     port = String.to_integer(System.get_env("COWBOY_PORT") || "4005")
 
     children = [
+      Repo,
       SessionRegistry,
       SessionSupervisor,
       Plug.Cowboy.child_spec(scheme: :http, plug: Router, options: [port: port]),
