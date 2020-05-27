@@ -53,6 +53,7 @@ defmodule DistributedElixirDemo.Session do
       :ok,
       %{
         user_name: user_name,
+        node: Node.self(),
         visits: 1
       }
     }
