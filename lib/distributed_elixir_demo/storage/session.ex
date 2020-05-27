@@ -6,8 +6,8 @@ defmodule DistributedElixirDemo.Storage.Session do
   use Ecto.Schema
 
   schema "sessions" do
-    field :user_name, :string
-    field :visits, :integer
+    field(:user_name, :string)
+    field(:visits, :integer)
   end
 
   def changeset(session, params \\ %{}) do

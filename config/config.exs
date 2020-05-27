@@ -6,4 +6,4 @@ config :distributed_elixir_demo, DistributedElixirDemo.Repo,
   password: System.get_env("DE_DEMO_DB_PASSWORD"),
   hostname: "localhost"
 
-  config :distributed_elixir_demo, ecto_repos: [DistributedElixirDemo.Repo]
+config :distributed_elixir_demo, ecto_repos: [DistributedElixirDemo.Repo]

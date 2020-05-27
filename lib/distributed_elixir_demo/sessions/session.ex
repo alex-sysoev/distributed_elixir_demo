@@ -3,7 +3,7 @@ defmodule DistributedElixirDemo.Session do
   This module based on GenServer behaviour represents
   user session with visit counter.
   """
-  
+
   require Logger
 
   use GenServer
@@ -40,7 +40,7 @@ defmodule DistributedElixirDemo.Session do
         user_name
         |> start_supervised()
         |> get_state()
-      
+
       pid ->
         GenServer.call(pid, :visit)
     end
@@ -91,7 +91,7 @@ defmodule DistributedElixirDemo.Session do
   end
 
   @impl true
-   # We don't want to backup session on normal stop.
+  # We don't want to backup session on normal stop.
   def terminate(:normal, _state), do: :ok
 
   @impl true

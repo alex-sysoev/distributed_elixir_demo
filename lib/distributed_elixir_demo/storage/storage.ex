@@ -36,6 +36,6 @@ defmodule DistributedElixirDemo.Storage do
   def cleanup(name) do
     Session
     |> where(user_name: ^name)
-    |> Repo.delete_all() 
+    |> Repo.delete_all()
   end
 end
