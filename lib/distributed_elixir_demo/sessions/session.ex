@@ -3,7 +3,7 @@ defmodule DistributedElixirDemo.Session do
   This module based on GenServer behaviour represents
   user session with visit counter.
   """
-  
+
   use GenServer
 
   alias DistributedElixirDemo.SessionSupervisor
@@ -35,7 +35,7 @@ defmodule DistributedElixirDemo.Session do
         user_name
         |> start_supervised()
         |> get_state()
-      
+
       pid ->
         GenServer.call(pid, :visit)
     end
