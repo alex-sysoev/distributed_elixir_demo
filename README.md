@@ -9,7 +9,7 @@ This is a Demo application made for meetup presentation to show how to make a di
 
 Every branch has instructions in it's Readme file.
 
-[Presentation PDF]()
+[Presentation PDF](https://github.com/alex-sysoev/distributed_elixir_demo/tree/master/distributed-elixir-demo.pdf)
 
 
 
